@@ -1,12 +1,13 @@
 "use client";
 import { useState,ChangeEvent } from "react";
-
+import { useRouter } from "next/navigation";
 type loginData={
     email:string;
     password:string;
 };
 
 export default function Login(){
+    const router=useRouter();
     const [form,setForm]=useState<loginData>({
         email:"",
         password:""
@@ -38,7 +39,8 @@ export default function Login(){
             setMessage(data.err);
         }else{    
             setMessage("Login successful✅");
-            console.log(data.user); // later use this
+            router.replace("/dashboard");
+            // console.log(data.user); // later use this
         }
     };
 

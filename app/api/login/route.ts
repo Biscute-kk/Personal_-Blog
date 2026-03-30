@@ -38,17 +38,28 @@ export async function POST(res:Request){
             );
         }
          // Success (for now just return user)
-         return NextResponse.json(
-            {
-                message: "Login successful ✅",
-                user:{
-                    id:user.id,
-                    name:user.name,
-                    email:user.email,
-                },
-            },
-            {status:200}
-         );
+
+         const response = NextResponse.json({message:"Login success"});
+
+         response.cookies.set("user",JSON.stringify({
+            id:user.id,
+            email:user.email,
+         }),{
+            httpOnly:true,
+            path:"/"
+         });
+         return response;
+        //  return NextResponse.json(
+        //     {
+        //         message: "Login successful ✅",
+        //         user:{
+        //             id:user.id,
+        //             name:user.name,
+        //             email:user.email,
+        //         },
+        //     },
+        //     {status:200}
+        //  );
     }catch(err:any){
         return NextResponse.json(
             {status:"something went wrong"},

@@ -16,7 +16,7 @@ type UserRequest = {
 export async function POST (req:Request){
     //Get request body
     try{
-        const {name,email,password}=await req.json();
+        const {name,email,password}:UserRequest=await req.json();
     
     //Validation
     if (!name || !email || !password){
