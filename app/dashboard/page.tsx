@@ -1,38 +1,26 @@
-
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import LogoutButton from "../components/logout";
-// import { useRouter } from "next/navigation";
+import DashboardClient from "./DashboardClient";
+type Blog= {
+    id:string,
+    topic:string,
+    content:string,
+    created_at:string
+};
+
 export default async function Dashboard(){
-    const cookieStore= await cookies();
-    const user=cookieStore.get("user");
+    const cookieStore = await cookies();
+    const user = cookieStore.get("user");
 
-    // const router=useRouter();
-    // const handleLogout= async()=>{
-    //     await fetch("api/logout", {method:"POST"});
-    //     router.push("/login");
-
-    // }
-
-    //not logged in
-    if(!user || !user.value){
+    if (!user || !user.value){
         redirect("/login");
     }
-    try{
-        const parsed= JSON.parse(user.value);
-        if(!parsed.id){
-            redirect("/login");
-        }
-    }catch{
-        redirect("/login");
-    }
-
     return (
-            <div>
-                <p>Dashboard</p>
-                <LogoutButton/>
+            <div style={{ padding: "20px" }}>
 
-                {/* <button className="border" onClick={handleLogout}>Logout</button> */}
+                <DashboardClient/>
+
+
             </div>
             
     );
