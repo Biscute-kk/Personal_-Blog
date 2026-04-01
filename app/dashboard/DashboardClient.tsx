@@ -12,6 +12,7 @@ export default function DashboardClient() {
   const [blog, setBlog] = useState<Blog[]>([]);
   const [topic,setTopic]=useState("");
   const[content,setContent]=useState("");
+  const [editingId,setEditingId]=useState("");
   const router =useRouter();    
 
   useEffect(() => {
@@ -57,6 +58,43 @@ const handleSubmit = async (e:React.SyntheticEvent)=>{
     setTopic("");
     setContent("");
   };
+
+
+  // DELETE
+  const handleDelete= async (id:string)=>{
+    await fetch ("/api/blogs",{
+        method:"DELETE",
+        body:JSON.stringify({id}),
+    });
+    setBlog((prev)=>prev.filter((b)=>b.id!==id));
+  };
+
+  //startedit
+  const startEdit=(blog:Blog)=>{
+    setEditingId(blog.id);
+    setTopic(blog.topic);
+    setContent(blog.content);
+
+  };
+
+  //save edit
+  const handleUpdate= async ()=>{
+    const res= await fetch("/api/blogs",{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({id:editingId,topic,content}) 
+    });
+    const updated= await res.json();
+
+    setBlog((prev)=>
+    prev.map((b)=>(b.id === editingId? updated :b)));
+
+    setEditingId("");
+    setTopic("");
+    setContent("");
+  };
+
+
   return (
     <div style={{ padding: "20px" }}>
                     <h1>Your Blogs 📝</h1>
@@ -87,11 +125,37 @@ const handleSubmit = async (e:React.SyntheticEvent)=>{
                     ):(
                         blog.map((blog)=>(
                             <div key={blog.id} style={{marginBottom:'20px'}}>
-                                <h3>{blog.topic}</h3>
-                                <p>{blog.content}</p>
-                                <small>{new Date(blog.created_at).toLocaleString()}</small>
+                                {editingId===blog.id?(
+                                <>
+                                    <input
+                                        value={topic}
+                                        onChange={(e)=>setTopic(e.target.value)}
+                                    />
+                                    <textarea
+                                        value={content}
+                                        onChange={(e)=>setContent(e.target.value)}
+                                    />
+                                    <button onClick={handleUpdate}>Submit</button>
+                                    <button onClick={()=>setEditingId("")}>cancel</button>
+
+                                </>
+
+
+
+                                    ):(
+
+                                <>
+                                    <h3>{blog.topic}</h3>
+                                    <p>{blog.content}</p>
+                                    <small>{new Date(blog.created_at).toLocaleString()}</small>
+                                    <button onClick={()=>startEdit(blog)}>Edit</button>
+                                    <button onClick={()=>handleDelete(blog.id)}>Delete</button>
+                                </>
+                            )}
                             </div>
                         ))
+
+
                     )}
 
                     <LogoutButton/>

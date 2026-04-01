@@ -82,3 +82,54 @@ export async function POST(req:Request){
     return NextResponse.json(result.rows[0], { status: 201 });
 
 }
+
+export async function PUT (req:Request){
+    const cookieStore= await cookies();
+    const userCookie= cookieStore.get("user");
+
+    if (!userCookie || !userCookie.value){
+        return NextResponse.json({error:"not authorized"},{status:401});
+    }
+
+    const user= JSON.parse(userCookie.value);
+
+    const{id,topic,content}=await req.json();
+
+    if (!id || !topic || !content){
+        return NextResponse.json({error:"All fields are required"},{status:400});
+    }
+
+    const result = await pool.query(
+        `UPDATE blogs 
+        SET topic=$1, content=$2
+        WHERE id=$3 AND user_id=$4
+        RETURNING id,topic,content,created_at`,
+        [topic,content,id,user.id]
+    )
+
+    return NextResponse.json(result.rows[0]);
+
+}
+
+export async function DELETE(req:Request){
+    const cookieStore= await cookies();
+    const userCookie= cookieStore.get("user");
+
+    if (!userCookie?.value){
+        return NextResponse.json({error:"unauthorized"},{status:401});
+    }
+
+    const user= JSON.parse(userCookie.value);
+
+    const {id} = await req.json();
+
+    if(!id){
+        return NextResponse.json({error:"blog id required"},{status:400});
+    }
+    await pool.query(
+        `DELETE FROM blogs WHERE id=$1 AND user_id=$2`,
+        [id,user.id]
+    )
+
+    return NextResponse.json({message:"Deleted"});
+}
