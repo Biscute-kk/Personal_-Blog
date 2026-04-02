@@ -7,7 +7,7 @@ const pool= new Pool({
 });
 
 
-export default async function GET(){
+export  async function GET(){
 
     const result= await pool.query(
         `SELECT topic, content, created_at
