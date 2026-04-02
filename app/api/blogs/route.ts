@@ -28,7 +28,7 @@ export async function GET() {
 
 
     const result=await pool.query(
-            `SELECT id, topic, content, created_at
+            `SELECT id, topic, content, created_at,status
             FROM blogs
             WHERE user_id = $1
             ORDER BY created_at DESC`
@@ -93,7 +93,7 @@ export async function PUT (req:Request){
 
     const user= JSON.parse(userCookie.value);
 
-    const{id,topic,content}=await req.json();
+    const{id,topic,content,status}=await req.json();
 
     if (!id || !topic || !content){
         return NextResponse.json({error:"All fields are required"},{status:400});
@@ -101,10 +101,13 @@ export async function PUT (req:Request){
 
     const result = await pool.query(
         `UPDATE blogs 
-        SET topic=$1, content=$2
-        WHERE id=$3 AND user_id=$4
-        RETURNING id,topic,content,created_at`,
-        [topic,content,id,user.id]
+        SET topic=COALESCE($1,topic),
+        content=COALESCE($2,content),
+        status=COALESCE($3,status)
+        WHERE id=$4 AND user_id=$5
+      
+        RETURNING *`,
+        [topic,content,status,id,user.id]
     )
 
     return NextResponse.json(result.rows[0]);
@@ -133,3 +136,33 @@ export async function DELETE(req:Request){
 
     return NextResponse.json({message:"Deleted"});
 }
+
+
+// export async function PUBLISH (req:Request){
+//     const cookieStore= await cookies();
+//     const userCookie= cookieStore.get("user");
+
+//     if (!userCookie || !userCookie.value){
+//         return NextResponse.json({error:"not authorized"},{status:401});
+//     }
+
+//     const user= JSON.parse(userCookie.value);
+
+//     const{id}=await req.json();
+
+//     if (!id ){
+//         return NextResponse.json({error:"ID required"},{status:400});
+//     }
+
+//     const result = await pool.query(
+//         `UPDATE blogs 
+//         SET status=$1
+//         WHERE id=$2 AND user_id=$3
+//         RETURNING id,topic,content,created_at`,
+//         ["published",id,user.id]
+//     )
+
+//     // return NextResponse.json({message:"updted status"},{status:403});
+//     return NextResponse.json(result.rows[0]);
+
+// }

@@ -6,7 +6,8 @@ type Blog= {
     id:string,
     topic:string,
     content:string,
-    created_at:string
+    created_at:string,
+    status:string
 };
 export default function DashboardClient() {
   const [blog, setBlog] = useState<Blog[]>([]);
@@ -94,6 +95,24 @@ const handleSubmit = async (e:React.SyntheticEvent)=>{
     setContent("");
   };
 
+  // publish
+  const handlePublish= async (blog:Blog)=>{
+    const res=await fetch("/api/blogs",{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            id:blog.id,
+            // topic:"",
+            // content:"",
+            status:"published"
+        }),
+    });
+    const updated=await res.json();
+    setBlog((prev)=>
+    prev.map((b)=>(b.id === blog.id? {...b,status:"published"} :b)));
+    
+  }
+
 
   return (
     <div style={{ padding: "20px" }}>
@@ -149,6 +168,12 @@ const handleSubmit = async (e:React.SyntheticEvent)=>{
                                     <p>{blog.content}</p>
                                     <small>{new Date(blog.created_at).toLocaleString()}</small>
                                     <button onClick={()=>startEdit(blog)}>Edit</button>
+                                    {blog.status !=="published" &&(
+                                       <button onClick={()=>handlePublish(blog)}>Publish</button> 
+                                    )}
+                                    
+                                    {/* {blog.status==="draft"?<button onClick={handlePublish}>Publish</button>:} */}
+                                    {/* <button onClick={handlePublish}>Publish</button> */}
                                     <button onClick={()=>handleDelete(blog.id)}>Delete</button>
                                 </>
                             )}
