@@ -97,6 +97,7 @@ const handleSubmit = async (e:React.SyntheticEvent)=>{
 
   // publish
   const handlePublish= async (blog:Blog)=>{
+    console.log(blog.id);
     const res=await fetch("/api/blogs",{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
