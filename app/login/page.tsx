@@ -40,41 +40,96 @@ export default function Login(){
         }else{    
             setMessage("Login successful✅");
             router.replace("/dashboard");
-            // console.log(data.user); // later use this
         }
     };
 
     
 
     return(
-        <div style={{ maxWidth: 400, margin: "50px auto" }}>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    placeholder="Your Email"
-                    onChange={handleChange}
-                    required
-                />
-                <br/><br/>
-                <input
-                    type="password"
-                    name="password"
-                    value={form.password}
-                    placeholder="Your Password"
-                    onChange={handleChange}
-                    required
-                />
-                <br/><br/>
-                <button type="submit">Login</button>
+        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <p className="font-bold text-slate-500">Email address</p>
+                        {/* <p className=" font-bold text-slate-0 tracking-tight ">Email address</p> */}
+                        <div className="mt-2">
+                        <input
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        placeholder="Your Email"
+                        onChange={handleChange}
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" 
+                        required
+                       />
+                        </div>
+                    </div>
 
-            </form>
-            <div >
-                <p>{message}</p>
+                    <div>
+                        <div className="flex items-center justify-between">
+                        <p className="font-bold text-slate-500">Password</p>
+                        {/* <label  className="block text-sm/6 font-medium text-gray-100">Password</label> */}
+                        </div>
+                        <div className="mt-2">
+                        <input
+                            type="password"
+                            name="password"
+                            value={form.password}
+                            placeholder="Your Password"
+                            onChange={handleChange}
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6    "
+                            required
+                        />
+                        
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Sign in</button>
+                    </div>
+                    </form>
+                    <p className="mt-10 text-center text-sm/6 text-gray-400">
+                    Not a User? 
+                    <a href="/register" className="font-semibold text-indigo-400 hover:text-indigo-300"> Create a User</a>
+                    </p>
             </div>
-            
         </div>
+
+
+
+
+
+
+
+
+        // <div style={{ maxWidth: 400, margin: "50px auto" }}>
+        //     <h2>Login</h2>
+        //     <form onSubmit={handleSubmit}>
+        //         <input
+        //             type="email"
+        //             name="email"
+        //             value={form.email}
+        //             placeholder="Your Email"
+        //             onChange={handleChange}
+        //             required
+        //         />
+        //         <br/><br/>
+        //         <input
+        //             type="password"
+        //             name="password"
+        //             value={form.password}
+        //             placeholder="Your Password"
+        //             onChange={handleChange}
+        //             required
+        //         />
+        //         <br/><br/>
+        //         <button type="submit">Login</button>
+
+        //     </form>
+        //     <div >
+        //         <p>{message}</p>
+        //     </div>
+            
+        // </div>
     );
 }
