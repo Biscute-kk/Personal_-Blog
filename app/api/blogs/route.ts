@@ -133,6 +133,7 @@ export async function DELETE(req:Request){
         `DELETE FROM blogs WHERE id=$1 AND user_id=$2`,
         [id,user.id]
     )
+    revalidatePath("/");
 
     return NextResponse.json({message:"Deleted"});
 }
