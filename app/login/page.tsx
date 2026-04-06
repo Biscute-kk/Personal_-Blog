@@ -1,6 +1,7 @@
 "use client";
 import { useState,ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 type loginData={
     email:string;
     password:string;
@@ -47,11 +48,19 @@ export default function Login(){
 
     return(
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            <Link href="/" className="text-2xl text-center font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent hover:text-indigo-600 transition-colors">
+                🏠.
+            </Link>
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-slate-500">Sign in to your account</h2>
+            </div>
+            
+            
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <p className="font-bold text-slate-500">Email address</p>
-                        {/* <p className=" font-bold text-slate-0 tracking-tight ">Email address</p> */}
                         <div className="mt-2">
                         <input
                         type="email"

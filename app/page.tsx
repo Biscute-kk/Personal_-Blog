@@ -74,11 +74,11 @@ export default async function Page() {
 
 return (
   <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
-    {/* 🧭 NAVIGATION BAR */}
+    {/* NAVIGATION BAR */}
     <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
-          Inkwell.
+          Biscute.
         </div>
         <div className="flex items-center gap-6">
           <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">
@@ -91,7 +91,7 @@ return (
       </div>
     </nav>
 
-    {/* 🧠 HERO SECTION */}
+    {/* HERO SECTION */}
     <header className="relative overflow-hidden py-20 bg-white border-b border-slate-100">
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
@@ -105,7 +105,7 @@ return (
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-50"></div>
     </header>
 
-    {/* 📚 BLOG GRID */}
+    {/* BLOG GRID */}
     <main className="max-w-6xl mx-auto py-16 px-6">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
         {blogs.map((blog: any) => {
@@ -118,7 +118,7 @@ return (
             <Link key={blog.id} href={`/blog/${blog.id}`} className="group">
               <article className="flex flex-col h-full bg-white rounded-3xl p-8 border border-slate-100 shadow-sm group-hover:shadow-xl group-hover:border-indigo-100 transition-all duration-300 transform group-hover:-translate-y-2">
                 
-                {/* 🏷 Topic Tag (Optional aesthetic touch) */}
+                {/* Topic Tag  */}
                 <span className="text-[10px] uppercase tracking-widest font-bold text-indigo-500 mb-4 px-2 py-1 bg-indigo-50 w-fit rounded">
                   Article
                 </span>
@@ -131,17 +131,17 @@ return (
                   <span className="text-sm font-medium text-slate-700">{blog.name}</span>
                 </div>
 
-                {/* 📄 Title */}
+                {/* Title */}
                 <h2 className="text-2xl font-bold mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2 leading-snug">
                   {blog.topic}
                 </h2>
 
-                {/* 📝 Preview */}
+                {/* Preview */}
                 <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
                   {preview}
                 </p>
 
-                {/* ⏱ Footer */}
+                {/* Footer */}
                 <div className="pt-6 border-t border-slate-50 flex justify-between items-center">
                   <span className="text-xs text-slate-400 font-medium">
                     {new Date(blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -159,7 +159,7 @@ return (
 
     {/* 👣 FOOTER */}
     <footer className="py-12 border-t border-slate-200 text-center">
-      <p className="text-slate-400 text-sm">© 2026 Inkwell Media. All rights reserved.</p>
+      <p className="text-slate-400 text-sm">© 2026 Biscute Media. All rights reserved.</p>
     </footer>
   </div>
 );
