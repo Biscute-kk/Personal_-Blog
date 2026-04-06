@@ -1,12 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import DashboardClient from "./DashboardClient";
-type Blog= {
-    id:string,
-    topic:string,
-    content:string,
-    created_at:string
-};
 
 export default async function Dashboard(){
     const cookieStore = await cookies();
@@ -17,10 +11,7 @@ export default async function Dashboard(){
     }
     return (
             <div style={{ padding: "20px" }}>
-
                 <DashboardClient/>
-
-
             </div>
             
     );

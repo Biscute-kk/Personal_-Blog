@@ -77,7 +77,6 @@ export default function Login(){
                     <div>
                         <div className="flex items-center justify-between">
                         <p className="font-bold text-slate-500">Password</p>
-                        {/* <label  className="block text-sm/6 font-medium text-gray-100">Password</label> */}
                         </div>
                         <div className="mt-2">
                         <input
@@ -104,41 +103,5 @@ export default function Login(){
             </div>
         </div>
 
-
-
-
-
-
-
-
-        // <div style={{ maxWidth: 400, margin: "50px auto" }}>
-        //     <h2>Login</h2>
-        //     <form onSubmit={handleSubmit}>
-        //         <input
-        //             type="email"
-        //             name="email"
-        //             value={form.email}
-        //             placeholder="Your Email"
-        //             onChange={handleChange}
-        //             required
-        //         />
-        //         <br/><br/>
-        //         <input
-        //             type="password"
-        //             name="password"
-        //             value={form.password}
-        //             placeholder="Your Password"
-        //             onChange={handleChange}
-        //             required
-        //         />
-        //         <br/><br/>
-        //         <button type="submit">Login</button>
-
-        //     </form>
-        //     <div >
-        //         <p>{message}</p>
-        //     </div>
-            
-        // </div>
-    );
+   );
 }

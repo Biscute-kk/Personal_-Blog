@@ -3,6 +3,9 @@ import Link from "next/link";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: true,
+  },
 });
 
 export default async function Page() {
@@ -16,61 +19,6 @@ export default async function Page() {
 
   const blogs = result.rows;
 
-//   return (
-//     <div className="bg-gradient-to-b from-gray-50 to-gray-200 min-h-screen">
-      
-//       {/* 🧠 HERO */}
-//       <div className="text-center py-12">
-//         <h1 className="text-5xl font-bold mb-4">✍️ Stories & Ideas</h1>
-//         <p className="text-gray-600 text-lg">
-//           Discover thoughts from amazing writers
-//         </p>
-//       </div>
-
-//       {/* 📚 BLOG GRID */}
-//       <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
-//         {blogs.map((blog: any) => {
-//           const preview =
-//             blog.content.length > 140
-//               ? blog.content.slice(0, 140) + "..."
-//               : blog.content;
-
-//           return (
-//             <Link key={blog.id} href={`/blog/${blog.id}`}>
-//               <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-1">
-                
-//                 {/* 🏷 Title */}
-//                 <h2 className="text-xl font-semibold mb-2 line-clamp-2">
-//                   {blog.topic}
-//                 </h2>
-
-//                 {/* 👤 Author */}
-//                 <p className="text-sm text-gray-500 mb-3">
-//                   ✍️ {blog.name}
-//                 </p>
-
-//                 {/* 📄 Preview */}
-//                 <p className="text-gray-700 text-sm mb-4 line-clamp-3">
-//                   {preview}
-//                 </p>
-
-//                 {/* ⏱ Date */}
-//                 <div className="text-xs text-gray-400">
-//                   {new Date(blog.created_at).toLocaleDateString()}
-//                 </div>
-
-//               </div>
-//             </Link>
-//           );
-//         })}
-//       </div>
-//       <div>
-//         <Link className="border" href={`/login`}>Login</Link>
-//         <Link className="border" href={`/register`} >Sign up</Link>
-//       </div>
-//     </div>
-//   );
-// }
 
 return (
   <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
