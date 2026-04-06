@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { Pool } from "pg";
-
+import { revalidatePath } from "next/cache";
 
 const pool = new Pool({
     connectionString:process.env.DATABASE_URL,
@@ -97,9 +97,6 @@ export async function PUT (req:Request){
 
     const{id,topic,content,status}=await req.json();
 
-    // if (!id || !topic || !content || !content){
-    //     return NextResponse.json({error:"All fields are required"},{status:400});
-    // }
 
     const result = await pool.query(
         `UPDATE blogs 
@@ -111,6 +108,7 @@ export async function PUT (req:Request){
         RETURNING *`,
         [topic,content,status,id,user.id]
     )
+    revalidatePath("/");
 
     return NextResponse.json(result.rows[0]);
 
